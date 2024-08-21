@@ -29,3 +29,10 @@ class comments(models.Model):
 
 class Category(models.Model):
     category=models.CharField(max_length=255)
+    def __str__(self):
+        return self.category
+class Link(models.Model):
+    link_title=models.CharField(max_length=255)
+    link_url=models.URLField()
+    def __str__(self):
+        return self.link_title
