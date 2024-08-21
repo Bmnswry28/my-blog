@@ -18,32 +18,41 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html,body{
+    height: 100%;
+    margin: 0;
+}
 body {
     background: #ececec url('./image/back.jpg'); 
     font-family: 'Vazir', Arial, sans-serif;
     font-size: 14px;
-    color:#3e3e3e;
+    color: #3e3e3e;
     word-wrap: break-word;
     direction: rtl;
+    display: flex;
+    flex-direction: column;
 }
-a{
+
+a {
     text-decoration: none;
     transition: .2s;
     color: #D80;
 }
-a:hover{
+
+a:hover {
     color: #F5AB35;
     text-decoration: underline;
 }
-.nav{
+
+.nav {
     align-items: center;
     overflow: hidden;
     background-color: #000;
     padding: 3px 5%;
     text-align: center;
 }
-.nav a{
+
+.nav a {
     float: right;
     display: block;
     color: #f2f2f2;
@@ -53,29 +62,32 @@ a:hover{
     font-size: 17px;
     margin-right: 20px;
 }
-.nav .icon{
+
+.nav .icon {
     display: none;
 }
-.nav a:hover{
+
+.nav a:hover {
     background-color: #F5AB35;
     color: white;
 }
 
-@media screen and (max-width:860px){
+@media screen and (max-width:860px) {
     .nav {
         padding: 5px 2%;
     }
 }
 
-@media screen and (max-width:600px){
-    .nav a:not(:first-child){
+@media screen and (max-width:600px) {
+    .nav a:not(:first-child) {
         display: none;
     }
-    .nav a.icon{
+    .nav a.icon {
         display: block;
     }
 }
-.hr{
+
+.hr {
     background: #fff url(./image/FB_IMG_1664276131723.jpg);
     width: 100%;
     height: 300px;
@@ -91,22 +103,24 @@ a:hover{
     object-position: 50% 50%;    
 }
 
-.hr a h1{
+.hr a h1 {
     color: #000;
     font-size: 32px;
     font-weight: bold;
     display: inline-block;
 }
 
-.hr a h1:hover{
+.hr a h1:hover {
     color: #444;
 }
-.hr h2{
+
+.hr h2 {
     padding: 10px;
     color: #000;
     font-size: 14px;
     font-weight: normal;
 }
+
 .nav.responsive {
     position: relative;
     display: block;
@@ -120,7 +134,11 @@ a:hover{
     padding: 12px 16px;
     background-color: #000;
 }
+
 #wrp {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
     width: 100%;
     max-width: 1200px;
     margin: 20px auto;
@@ -128,8 +146,7 @@ a:hover{
 
 #right {
     width: 70%;
-    float: right;
-    margin-bottom: 24px;
+    padding-right: 15px;
 }
 
 .padding {
@@ -239,12 +256,11 @@ a:hover{
 
 #left {
     width: 30%;
-    float: left;
 }
 
 .side {
     background-color: #fff;
-    margin: 0 0 30px;
+    margin-bottom: 30px;
     border-radius: 3px;
 }
 
@@ -287,7 +303,6 @@ a:hover{
 
 .side .content li:last-child {
     border-bottom: 0;
-
 }
 
 .side .content a {
@@ -324,8 +339,13 @@ a:hover{
 }
 
 @media only screen and (max-width: 800px) {
+    #wrp {
+        flex-direction: column;
+    }
+
     #right, #left {
         width: 100%;
+        padding-right: 0;
     }
 
     .post .content {
