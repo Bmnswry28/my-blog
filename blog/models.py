@@ -36,3 +36,6 @@ class Link(models.Model):
     link_url=models.URLField()
     def __str__(self):
         return self.link_title
+class Archive(models.Model):
+    month=models.IntegerField()
+    year=models.IntegerField()
