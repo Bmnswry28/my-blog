@@ -8,23 +8,23 @@ class Profile(models.Model):
     profile_pic=models.ImageField('profile_images/',null=True,blank=True)
     def __str__(self):
         return self.user.username
-class posts(models.Model):
+class Post(models.Model):
     title=models.CharField(max_length=255)
-    content=models.TextField()
+    Content=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     publishedDate=models.DateTimeField(default=timezone.now)
     author=models.ForeignKey(User, on_delete=models.CASCADE)
-    catgory=models.ForeignKey("Category",on_delete=models.SET_NULL,null=True)
-    comments=models.IntegerField(default=0)
+    catgory=models.ForeignKey("Category",on_delete=models.SET_NULL,null=True,related_name='posts')
+    comments_count=models.IntegerField(default=0)
     image=models.ImageField('post_images/',null=True,blank=True)
     video=models.FileField("post_videos/",null=True,blank=True)
     def __str__(self):
         return self.title
-class comments(models.Model):
-    post=models.ForeignKey(posts,on_delete=models.CASCADE)
+class comment(models.Model):
+    post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
     comment_text=models.TextField()
-    comment_date=models.DateTimeField(timezone.now)
+    comment_date=models.DateTimeField(default=timezone.now)
     user_name = models.CharField(max_length=80)
     email=models.EmailField(null=True,blank=True)
     website=models.URLField(null=True,blank=True)
