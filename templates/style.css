@@ -16,10 +16,11 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background: #ececec url('./image/back.jpg');
+    background: #ececec url('./image/back.jpg'); 
     font-family: 'Vazir', Arial, sans-serif;
     font-size: 14px;
     color:#3e3e3e;
@@ -36,9 +37,10 @@ a:hover{
     text-decoration: underline;
 }
 .nav{
+    align-items: center;
     overflow: hidden;
     background-color: #000;
-    padding: 3px 100px;
+    padding: 3px 5%;
     text-align: center;
 }
 .nav a{
@@ -61,7 +63,7 @@ a:hover{
 
 @media screen and (max-width:860px){
     .nav {
-        padding: 0;
+        padding: 5px 2%;
     }
 }
 
@@ -70,37 +72,7 @@ a:hover{
         display: none;
     }
     .nav a.icon{
-        float: right;
         display: block;
-    }
-}
-@media screen and (max-width:600px){
-    .nav a{
-        margin-left: 0;
-    }
-    .nav{
-        position: relative;
-    }
-    .nav .icon{
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .nav .icon a{
-        display: block;
-        text-align: right;
-        float: none;
-    }
-    .nav{
-        float: none;
-    }
-    .nav{
-        position: relative;
-    }
-    .nav{
-        display: block;
-        width: 100%;
-        text-align: right;
     }
 }
 .hr{
@@ -122,7 +94,6 @@ a:hover{
 .hr a h1{
     color: #000;
     font-size: 32px;
-    margin: 120px 0 15px;
     font-weight: bold;
     display: inline-block;
 }
@@ -135,4 +106,17 @@ a:hover{
     color: #000;
     font-size: 14px;
     font-weight: normal;
+}
+.nav.responsive {
+    position: relative;
+    display: block;
+}
+
+.nav.responsive a {
+    display: block;
+    text-align: right;
+    float: none;
+    margin-right: 0;
+    padding: 12px 16px;
+    background-color: #000;
 }
