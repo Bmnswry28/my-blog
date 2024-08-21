@@ -25,4 +25,7 @@ class comments(models.Model):
     image = models.ImageField(upload_to='comment_images/', null=True, blank=True)  
     video = models.FileField(upload_to='comment_video/',null=True,blank=True)
     def __str__(self):
-        return self.comment_text
+        return f'کامنت از {self.user_name} نوشته {self.comment_text}'
+
+class Category(models.Model):
+    category=models.CharField(max_length=255)
