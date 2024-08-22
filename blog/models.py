@@ -16,23 +16,10 @@ class Post(models.Model):
     publishedDate=models.DateTimeField(default=timezone.now)
     author=models.ForeignKey(User, on_delete=models.CASCADE)
     catgory=models.ForeignKey("Category",on_delete=models.SET_NULL,null=True,related_name='posts')
-    comments_count=models.IntegerField(default=0)
     image=models.ImageField('post_images/',null=True,blank=True)
     video=models.FileField("post_videos/",null=True,blank=True)
     def __str__(self):
         return self.title
-class comment(models.Model):
-    post=models.ForeignKey(Post,related_name='comments',on_delete=models.CASCADE)
-    comment_text=models.TextField()
-    comment_date=models.DateTimeField(default=timezone.now)
-    user_name = models.CharField(max_length=80)
-    email=models.EmailField(null=True,blank=True)
-    website=models.URLField(null=True,blank=True)
-    image = models.ImageField(upload_to='comment_images/', null=True, blank=True)  
-    video = models.FileField(upload_to='comment_video/',null=True,blank=True)
-    def __str__(self):
-        return f'کامنت از {self.user_name} نوشته {self.comment_text}'
-
 class Category(models.Model):
     category=models.CharField(max_length=255)
     def __str__(self):
