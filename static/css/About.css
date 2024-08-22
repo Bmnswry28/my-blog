@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'Vazir';
-    src: url('./font/Vazirmatn-Light.ttf') format('truetype'),
-         url('./font/Vazirmatn-Bold.ttf') format('truetype');
+    src: url('/static/font/Vazirmatn-Light.ttf') format('truetype'),
+         url('/static/font/Vazirmatn-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Vazir';
-    src: url('./font/Vazirmatn-Bold.ttf') format('truetype');
+    src: url('/static/font/Vazirmatn-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
@@ -23,7 +23,7 @@ html,body{
     margin: 0;
 }
 body {
-    background: #ececec url('./image/back.jpg'); 
+    background: #ececec url('/static/image/back.jpg'); 
     font-family: 'Vazir', Arial, sans-serif;
     font-size: 14px;
     color: #3e3e3e;
@@ -88,7 +88,7 @@ a:hover {
 }
 
 .hr {
-    background: #fff url(./image/FB_IMG_1664276131723.jpg);
+    background: #fff url(/static/image/FB_IMG_1664276131723.jpg);
     width: 100%;
     height: 300px;
     text-align: center;

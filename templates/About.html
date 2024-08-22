@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عباس منصوری - درباره ما</title>
-    <link rel="stylesheet" href="About.css">
+    <link rel="stylesheet" href="{% static 'css/About.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
@@ -15,10 +16,10 @@
         </div>
         <div class="nav">
             <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
-            <a href="#">صفحه اول</a>
-            <a href="#">درباره ما</a>
-            <a href="#">آرشیو</a>
-            <a href="#">عناوین نوشته</a>
+            <a href="{% url 'index' %}">صفحه اول</a>
+            <a href="{% url 'about' %}">درباره ما</a>
+            <a href="{% url 'archive_list' %}">آرشیو</a>
+            <a href="{% url 'post_titles' %}">عناوین نوشته‌ها</a>
         </div>
     </header>
     
@@ -40,7 +41,7 @@
             <div class="side">
                 <h5>مشخصات وب</h5>
                 <div class="content">
-                    <img class="avatar" title="عباس" alt="عباس" src="./image/۲۰۲۳۱۰۱۴_۲۰۰۰۱۸.jpg">  
+                    <img class="avatar" title="عباس" alt="عباس" src="{% static 'image/۲۰۲۳۱۰۱۴_۲۰۰۰۱۸.jpg' %}">  
                     <p>عباس  هستم ی گیک که دوست داره هر جای تکنولوژی سرک بکشه.</p>
                 </div>
             </div>
@@ -68,6 +69,6 @@
     <footer id="footer">
         <p>مرسی از این که من رو همراهی میکنید ^_^</p>
     </footer>
-    <script src="app.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>
