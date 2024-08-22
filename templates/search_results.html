@@ -1,0 +1,17 @@
+
+<h1>نتایج جستجو برای: "{{ query }}"</h1>
+
+{% if posts %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                <p>{{ post.content|truncatewords:30 }}...</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>نتیجه‌ای یافت نشد.</p>
+{% endif %}
+
+<a href="{% url 'index' %}">بازگشت به صفحه اصلی</a>
