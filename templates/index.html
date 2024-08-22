@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عباس منصوری</title>
-    <link rel="stylesheet" href="{% static 'css\style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -25,34 +25,22 @@
     <div id="wrp">
         <div id="right">
             <div class="padding">
+                {% for post in posts %}
                 <div class="post">
                     <div class="title">
-                        <a href="#" title="آزادی جادی"><h3>آزادی جادی</h3></a>
+                        <a href="#" title="{{ post.title }}"><h3>{{ post.title }}</h3></a>
                     </div>
                     <div class="details">
-                        0:9 پنجشنبه بیست و چهارم آذر 1401
+                        {{ post.publishedDate }}
                     </div>
                     <div class="content">
-                        <p>متن مربوط به مطلب اول...</p>
+                        <p>{{ post.content|truncatewords:30 }}...</p>
                     </div>
                     <div class="read-more">
-                        <a href="#">ادامه مطلب</a>
+                        <a href="{% url 'post_detail' post.id %}">ادامه مطلب</a>
                     </div>
                 </div>
-                <div class="post">
-                    <div class="title">
-                        <a href="#" title="آزادی جادی"><h3>آزادی جادی</h3></a>
-                    </div>
-                    <div class="details">
-                        0:9 پنجشنبه بیست و چهارم آذر 1401
-                    </div>
-                    <div class="content">
-                        <p>متن مربوط به مطلب دوم...</p>
-                    </div>
-                    <div class="read-more">
-                        <a href="#">ادامه مطلب</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -75,7 +63,6 @@
                             <li><a href="https://github.com/Bmnswry28" target="_blank" title="github"><i class="fab fa-github"></i> GitHub</a></li>
                             <li><a href="https://x.com/mnswryb28" target="_blank" title="x"><i class="fab fa-x"></i> به ایلان ماسک احترام نمیذارم و میگم توییتر</a></li>
                         </ul>
-                        
                     </div>
                 </div>
             </div>
