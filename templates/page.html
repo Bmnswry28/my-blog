@@ -35,7 +35,7 @@
         <div id="right" class="padding">
             <div class="post">
                 <div class="title">
-                    <h3>عنوان کامل پست</h3>
+                    <h2 style="text-align: center;">عنوان کامل پست</h2>
                 </div>
                 <div class="content">
                     <p>متن کامل پست در اینجا قرار می‌گیرد. این بخش شامل اطلاعات کامل مربوط به پست است که کاربران می‌توانند آن را مطالعه کنند.</p>
@@ -67,6 +67,12 @@
         </div>
     </div>
 
+    <div class="search-box">
+        <form action="search_results.html" method="get">
+            <input type="text" name="q" placeholder="عبارت مورد نظر را وارد کنید..." required>
+            <button type="submit">جستجو</button>
+        </form>
+    </div>
     <div id="disqus_thread"></div>
     <script>
         var disqus_config = function () {
@@ -83,9 +89,9 @@
         })();
     </script>
     <noscript>لطفا جاوا اسکریپت را فعال کنید تا نظرات نمایش داده شود. <a href="https://disqus.com/?ref_noscript">Disqus</a></noscript>
-
     <footer id="footer">
         <p>مرسی از این که من رو همراهی میکنید ^_^</p>
     </footer>
+    <script src="app.js"></script>
 </body>
 </html>

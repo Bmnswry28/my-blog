@@ -373,3 +373,33 @@ a:hover {
         margin: 3px auto;
     }
 }
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-box input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    text-align: right;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.search-box button:hover {
+    background-color: #555;
+}
