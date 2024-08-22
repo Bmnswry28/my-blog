@@ -19,9 +19,9 @@ def archive_view(request):
     posts = Post.objects.all().order_by('-publishedDate')  # استفاده از فیلد صحیح
     return render(request, 'archive.html', {'posts': posts})
 
-def detail_view(request, post_id):
-    post = Post.objects.get(pk=post_id)
-    return render(request, 'detail.html', {'post': post})
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    return render(request, 'page.html', {'post': post})
 def AboutView(request):
     return render(request, 'about.html')
 

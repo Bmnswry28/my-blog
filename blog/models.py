@@ -9,21 +9,36 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 class Post(models.Model):
-    title=models.CharField(max_length=255)
-    Content=models.TextField()
-    created_at=models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
-    publishedDate=models.DateTimeField(default=timezone.now)
-    author=models.ForeignKey(User, on_delete=models.CASCADE)
-    catgory=models.ForeignKey("Category",on_delete=models.SET_NULL,null=True,related_name='posts')
-    image=models.ImageField('post_images/',null=True,blank=True)
-    video=models.FileField("post_videos/",null=True,blank=True)
+    STATUS_CHOICES = [
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    ]
+
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+    Content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    publishedDate = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    catgory = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, related_name='posts')
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    video = models.FileField(upload_to="post_videos/", null=True, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
+
 class Category(models.Model):
-    category=models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+
     def __str__(self):
-        return self.category
+        return self.name
 class Link(models.Model):
     link_title=models.CharField(max_length=255)
     link_url=models.URLField()

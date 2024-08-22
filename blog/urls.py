@@ -7,4 +7,5 @@ urlpatterns = [
     path('archive', archive_view, name='archive_list'),
     path('about', AboutView, name='about'),
     path('titles', post_titles_view, name='post_titles'),
+    path('post/<int:pk>/', post_detail, name='post_detail'),
 ]

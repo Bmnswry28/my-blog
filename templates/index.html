@@ -28,13 +28,13 @@
                 {% for post in posts %}
                 <div class="post">
                     <div class="title">
-                        <a href="#" title="{{ post.title }}"><h3>{{ post.title }}</h3></a>
+                        <a href="{% url 'post_detail' post.id %}" title="{{ post.title }}"><h3>{{ post.title }}</h3></a>
                     </div>
                     <div class="details">
                         {{ post.publishedDate }}
                     </div>
                     <div class="content">
-                        <p>{{ post.content|truncatewords:30 }}...</p>
+                        <p>{{ post.Content|truncatewords:5 }}...</p>
                     </div>
                     <div class="read-more">
                         <a href="{% url 'post_detail' post.id %}">ادامه مطلب</a>
