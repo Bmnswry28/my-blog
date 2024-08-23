@@ -1,9 +1,5 @@
-# admin.py
-
 from django.contrib import admin
 from .models import *
-
-
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'publishedDate', 'status')
@@ -15,3 +11,8 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bio', 'profile_pic')
+    search_fields = ('user__username', 'bio')
+    list_filter = ('user',)

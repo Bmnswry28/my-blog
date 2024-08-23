@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post,Profile
 from django.db.models import Q
+from django.views.generic import ListView, DetailView
 
 def index(request):
     posts = Post.objects.all()  
@@ -28,3 +29,13 @@ def AboutView(request):
 def post_titles_view(request):
     titles = Post.objects.all().order_by('-publishedDate')  
     return render(request, 'title.html', {'titles': titles})
+
+class ProfileListView(ListView):
+    model = Profile
+    template_name = 'profile_list.html'
+    context_object_name = 'profiles'
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'profile_detail.html'
+    context_object_name = 'profile'
