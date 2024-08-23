@@ -1,12 +1,11 @@
-
 <h1>نتایج جستجو برای: "{{ query }}"</h1>
 
-{% if posts %}
+{% if results %}
     <ul>
-        {% for post in posts %}
+        {% for post in results %}
             <li>
-                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-                <p>{{ post.content|truncatewords:30 }}...</p>
+                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                <p>{{ post.Content|truncatewords:30 }}...</p>
             </li>
         {% endfor %}
     </ul>
