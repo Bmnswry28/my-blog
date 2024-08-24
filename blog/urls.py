@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .views import *
 
 urlpatterns = [
@@ -12,5 +12,6 @@ urlpatterns = [
     path('profiles/', ProfileListView.as_view(), name='profile_list'),
     path('profiles/<int:pk>/', ProfileDetailView.as_view(), name='profile_detail'),
     path('post/<int:pk>/', post_detail, name='post_detail'),
-    path('post/<int:post_id>/reply/', add_reply, name='add_reply')
+    path('post/<int:post_id>/reply/', add_reply, name='add_reply'),
+    path('captcha/', include('captcha.urls')),
 ]
