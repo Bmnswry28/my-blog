@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ post.title }} - عباس منصوری</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <header>
@@ -31,23 +31,24 @@
         <div class="content">
           <p>{{ post.Content|safe }}</p>
           {% if post.image %}
-          <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto" />
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width: 100%; height: auto;">
           {% endif %}
           {% if post.video %}
-          <video controls style="max-width: 100%; height: auto">
-            <source src="{{ post.video.url }}" type="video/mp4" />
-            Your browser does not support the video tag.
+          <video controls style="max-width: 100%; height: auto;">
+            <source src="{{ post.video.url }}" type="video/mp4">
+            مرورگر شما از این ویدیو پشتیبانی نمی‌کند.
           </video>
           {% endif %}
         </div>
       </div>
-      
+
       <div class="search-box">
         <form action="{% url 'search_results' %}" method="get">
-          <input type="text" name="q" placeholder="عبارت مورد نظر را وارد کنید..." required />
+          <input type="text" name="q" placeholder="عبارت مورد نظر را وارد کنید..." required>
           <button type="submit">جستجو</button>
         </form>
       </div>
+
       <div class="comments-section">
         <h3>نظرات</h3>
         {% if comments %}
@@ -74,17 +75,19 @@
                 </div>
               {% endif %}
               <button class="reply-button" onclick="showReplyForm('comment-{{ comment.id }}')">پاسخ</button>
-              
+
+              <!-- فرم پاسخ به نظر -->
               <div class="reply-form" id="reply-form-comment-{{ comment.id }}" style="display: none;">
                 <h4>ارسال پاسخ</h4>
                 <form method="post" action="{% url 'add_reply' post.id %}" enctype="multipart/form-data">
                   {% csrf_token %}
                   {{ form.as_p }}
-                  <input type="hidden" name="parent_id" value="{{ comment.id }}" />
+                  <input type="hidden" name="parent_id" value="{{ comment.id }}">
                   <button type="submit">ارسال پاسخ</button>
                 </form>
               </div>
 
+              <!-- نمایش پاسخ‌ها -->
               <div class="replies">
                 {% for reply in comment.replies.all %}
                   <div class="reply">
@@ -109,19 +112,64 @@
                       </div>
                     {% endif %}
                     <button class="reply-button" onclick="showReplyForm('reply-{{ reply.id }}')">پاسخ</button>
-                    
+
+                    <!-- فرم پاسخ به پاسخ -->
                     <div class="reply-form" id="reply-form-reply-{{ reply.id }}" style="display: none;">
                       <h4>ارسال پاسخ</h4>
                       <form method="post" action="{% url 'add_reply' post.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}
-                        <input type="hidden" name="parent_id" value="{{ reply.id }}" />
+                        <input type="hidden" name="parent_id" value="{{ reply.id }}">
                         <button type="submit">ارسال پاسخ</button>
                       </form>
                     </div>
+
+                    <!-- نمایش پاسخ‌های تو در تو -->
+                    <div class="replies">
+                      {% for sub_reply in reply.replies.all %}
+                        <div class="reply">
+                          <div class="reply-header">
+                            <span class="reply-author">{{ sub_reply.name }}</span>
+                            <span class="reply-date">{{ sub_reply.created_at|date:"j F Y" }}</span>
+                          </div>
+                          <div class="reply-content">
+                            {{ sub_reply.content }}
+                          </div>
+                          {% if sub_reply.image %}
+                            <div class="reply-image">
+                              <img src="{{ sub_reply.image.url }}" alt="تصویر پاسخ">
+                            </div>
+                          {% endif %}
+                          {% if sub_reply.video %}
+                            <div class="reply-video">
+                              <video controls>
+                                <source src="{{ sub_reply.video.url }}" type="video/mp4">
+                                مرورگر شما از این ویدیو پشتیبانی نمی‌کند.
+                              </video>
+                            </div>
+                          {% endif %}
+                          <button class="reply-button" onclick="showReplyForm('sub-reply-{{ sub_reply.id }}')">پاسخ</button>
+
+                          <!-- فرم پاسخ به پاسخ‌های تو در تو -->
+                          <div class="reply-form" id="reply-form-sub-reply-{{ sub_reply.id }}" style="display: none;">
+                            <h4>ارسال پاسخ</h4>
+                            <form method="post" action="{% url 'add_reply' post.id %}" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              {{ form.as_p }}
+                              <input type="hidden" name="parent_id" value="{{ sub_reply.id }}">
+                              <button type="submit">ارسال پاسخ</button>
+                            </form>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <!-- پایان نمایش پاسخ‌های تو در تو -->
+
                   </div>
                 {% endfor %}
               </div>
+              <!-- پایان نمایش پاسخ‌ها -->
+
             </div>
           {% endfor %}
         {% else %}
@@ -132,25 +180,25 @@
           <h4>افزودن نظر</h4>
           <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-            {% csrf_token %}
-            {{ form.as_p }}
+              {% csrf_token %}
+              {{ form.as_p }}
             </div>
             <button type="submit">ارسال نظر</button>
           </form>
         </div>
       </div>
     </div>
-    
+
     <div id="left" class="padding">
       <div class="side">
         <h5>مشخصات وب</h5>
         <div class="content">
-            {% if user.is_superuser and user.profile %}
-                <img class="avatar" title="{{ user.username }}" alt="{{ user.username }}" src="{{ user.profile.profile_pic.url }}">  
-                <p>{{ user.profile.bio }}</p>
-            {% else %}
-                <p>فقط سوپر یوزرها پروفایل دارند.</p>
-            {% endif %}
+          {% if user.is_superuser and user.profile %}
+            <img class="avatar" title="{{ user.username }}" alt="{{ user.username }}" src="{{ user.profile.profile_pic.url }}">
+            <p>{{ user.profile.bio }}</p>
+          {% else %}
+            <p>فقط سوپر یوزرها پروفایل دارند.</p>
+          {% endif %}
         </div>
       </div>
       <div class="side">
@@ -160,21 +208,38 @@
             {% for link in social_links %}
             <li>
               <a href="{{ link.url }}" target="_blank" title="{{ link.name }}">
-                    <i class="{{ link.icon_class }}"></i> {{ link.name }}
-                </a>
+                <i class="{{ link.icon_class }}"></i> {{ link.name }}
+              </a>
             </li>
             {% endfor %}
           </ul>
-        </div> 
+        </div>
       </div>
     </div>
   </div>
 
-
   <footer id="footer">
-    <p>مرسی از این که من رو همراهی میکنید ^_^</p>
+    <p>مرسی از این که من رو همراهی میکنید. همه حقوق محفوظ است.</p>
   </footer>
 
-  <script src="{% static 'js/app.js' %}"></script>
+  <script>
+    function toggleMenu() {
+      var nav = document.querySelector('.nav');
+      if (nav.className === 'nav') {
+        nav.className += ' responsive';
+      } else {
+        nav.className = 'nav';
+      }
+    }
+
+    function showReplyForm(id) {
+      var form = document.getElementById('reply-form-' + id);
+      if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
