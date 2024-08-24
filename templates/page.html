@@ -20,9 +20,9 @@
         <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">&#9776;</a>
         <a href="{% url 'index' %}">صفحه اول</a>
         <a href="{% url 'about' %}">درباره ما</a>
-        <a href="{% url 'archive_list' %}">آرشیو</a>
+        <a href="{% url 'category_list' %}">دسته‌بندی نوشته‌ها</a>
         <a href="{% url 'post_titles' %}">عناوین نوشته‌ها</a>
-      </div>
+    </div>
     </header>
 
     <div id="wrp">
@@ -65,15 +65,15 @@
           <h5>پیوندها</h5>
           <div class="content">
             <ul>
-              {% for link in social_links %}
-              <li>
-                  <a href="{{ link.url }}" target="_blank" title="{{ link.name }}">
-                      <i class="{{ link.icon_class }}"></i> {{ link.name }}
-                  </a>
-              </li>
-              {% endfor %}
-          </ul>
-          </div>
+                {% for link in social_links %}
+                <li>
+                    <a href="{{ link.url }}" target="_blank" title="{{ link.name }}">
+                        <i class="{{ link.icon_class }}"></i> {{ link.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div> 
         </div>
       </div>
     </div>

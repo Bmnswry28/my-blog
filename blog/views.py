@@ -13,9 +13,6 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-from django.shortcuts import render
-from .models import Post
-
 def search_results(request):
     query = request.GET.get('q', '')
     if query:
@@ -28,14 +25,20 @@ def search_results(request):
 
 def category_list(request):
     categories = Category.objects.all()
-    return render(request, 'archive.html', {'categories': categories})
+    social_links = SocialLink.objects.all()
+    context = {
+        'categories': categories,
+       'social_links': social_links
+    }
+    return render(request, 'archive.html', context)
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'page.html', {'post': post})
 
 def AboutView(request):
-    return render(request, 'about.html')
+    social_links = SocialLink.objects.all()
+    return render(request, 'about.html',{'social_links': social_links})
 
 def post_titles_view(request):
     titles = Post.objects.all().order_by('-publishedDate')
