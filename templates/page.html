@@ -131,8 +131,10 @@
         <div class="comment-form">
           <h4>افزودن نظر</h4>
           <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
             {% csrf_token %}
             {{ form.as_p }}
+            </div>
             <button type="submit">ارسال نظر</button>
           </form>
         </div>

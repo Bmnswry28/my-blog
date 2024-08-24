@@ -593,3 +593,54 @@ button[type="submit"]:hover {
         margin: 3px auto;
     }
 }
+/* استایل فرم نظر و پاسخ */
+.comment-form, .reply-form {
+    border: 1px solid #ebebf3;
+    border-radius: 3px;
+    padding: 20px;
+    background-color: #fafafa;
+    margin-top: 20px;
+}
+
+.comment-form h4, .reply-form h4 {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #3e3e3e;
+}
+
+.form-group input[type="text"], .form-group input[type="email"], .form-group input[type="url"], .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ebebf3;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    height: 100px;
+}
+
+button[type="submit"] {
+    background-color: #F5AB35;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #D80;
+}
