@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عباس منصوری - آرشیو</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -30,7 +30,7 @@
                 <div class="content">
                     <ul class="archive-list">
                         {% for post in posts %}
-                            <li><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></li>
+                        <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
                         {% empty %}
                             <li>مقاله‌ای برای نمایش وجود ندارد.</li>
                         {% endfor %}
@@ -42,8 +42,12 @@
             <div class="side">
                 <h5>مشخصات وب</h5>
                 <div class="content">
-                    <img class="avatar" title="عباس" alt="عباس" src="{% static 'image/۲۰۲۳۱۰۱۴_۲۰۰۰۱۸.jpg' %}">  
-                    <p>عباس هستم ی گیک که دوست داره هر جای تکنولوژی سرک بکشه.</p>
+                    {% if user.is_superuser and user.profile %}
+                        <img class="avatar" title="{{ user.username }}" alt="{{ user.username }}" src="{{ user.profile.profile_pic.url }}">  
+                        <p>{{ user.profile.bio }}</p>
+                    {% else %}
+                        <p>فقط سوپر یوزرها پروفایل دارند.</p>
+                    {% endif %}
                 </div>
             </div>
             <div class="side">
@@ -67,21 +71,6 @@
             <button type="submit">جستجو</button>
         </form>
     </div>
-    <div id="disqus_thread"></div>
-    <script>
-        var disqus_config = function () {
-            this.page.url = window.location.href;  // آدرس صفحه کنونی
-            this.page.identifier = window.location.pathname;  // شناسه یکتا برای صفحه
-            this.language = "fa";
-        };
-        
-        (function() {  // بارگذاری اسکریپت Disqus
-            var d = document, s = d.createElement('script');
-            s.src = 'https://abbasmnsoori.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
     <noscript>لطفا جاوا اسکریپت را فعال کنید تا نظرات نمایش داده شود. <a href="https://disqus.com/?ref_noscript">Disqus</a></noscript>
     <footer id="footer">
         <p>مرسی از این که من رو همراهی میکنید ^_^</p>
