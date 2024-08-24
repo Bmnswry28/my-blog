@@ -4,11 +4,17 @@ from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 # Create your models here.
 class Profile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
-    bio=models.TextField(max_length=500,null=True,blank=True)
-    profile_pic=models.ImageField('profile_images/',null=True,blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+
     def __str__(self):
         return self.user.username
+
+    @classmethod
+    def create_superuser_profile(cls, user):
+        if user.is_superuser:
+            return cls.objects.create(user=user)
 class Post(models.Model):
     STATUS_CHOICES = [
         ('draft', 'Draft'),

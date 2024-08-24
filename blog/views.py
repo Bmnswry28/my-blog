@@ -3,7 +3,7 @@ from .models import Post, Profile,Comment
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.views.generic import ListView, DetailView
 from .forms import CommentForm
-
+from django.contrib.auth.mixins import UserPassesTestMixin
 def index(request):
     posts = Post.objects.all()  
     return render(request, 'index.html', {'posts': posts})
@@ -36,15 +36,28 @@ def post_titles_view(request):
     titles = Post.objects.all().order_by('-publishedDate')
     return render(request, 'title.html', {'titles': titles})
 
-class ProfileListView(ListView):
+class SuperuserRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def handle_no_permission(self):
+        return redirect('home')  # Redirect to home page if not a superuser
+
+class ProfileListView(SuperuserRequiredMixin, ListView):
     model = Profile
     template_name = 'profile_list.html'
     context_object_name = 'profiles'
 
-class ProfileDetailView(DetailView):
+    def get_queryset(self):
+        return Profile.objects.filter(user__is_superuser=True)
+
+class ProfileDetailView(SuperuserRequiredMixin, DetailView):
     model = Profile
     template_name = 'profile_detail.html'
     context_object_name = 'profile'
+
+    def get_queryset(self):
+        return Profile.objects.filter(user__is_superuser=True)
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.all()
