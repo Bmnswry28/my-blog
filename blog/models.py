@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
+from ckeditor.fields import RichTextField
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,7 +24,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    Content = models.TextField()
+    Content = RichTextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     publishedDate = models.DateTimeField(default=timezone.now)
