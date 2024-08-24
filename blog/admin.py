@@ -16,3 +16,5 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio', 'profile_pic')
     search_fields = ('user__username', 'bio')
     list_filter = ('user',)
+
+admin.site.register(SocialLink)

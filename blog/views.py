@@ -1,12 +1,17 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import Post, Profile,Comment,Category
+from .models import Post, Profile,Comment,Category,SocialLink
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.views.generic import ListView, DetailView
 from .forms import CommentForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 def index(request):
-    posts = Post.objects.all()  
-    return render(request, 'index.html', {'posts': posts})
+    social_links = SocialLink.objects.all()
+    posts = Post.objects.all()
+    context = {
+        'social_links': social_links,
+        'posts': posts
+    }
+    return render(request, 'index.html', context)
 
 from django.shortcuts import render
 from .models import Post

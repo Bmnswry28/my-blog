@@ -73,3 +73,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post.title}'
+    
+class SocialLink(models.Model):
+    name = models.CharField(max_length=100, help_text="نام نمایشی لینک (مانند YouTube, Instagram و غیره).")
+    url = models.URLField(max_length=255, help_text="آدرس کامل لینک.")
+    icon_class = models.CharField(max_length=100, help_text="کلاس CSS برای آیکون (مانند 'fab fa-youtube').")
+
+    def __str__(self):
+        return self.name
