@@ -23,3 +23,42 @@ function showReplyForm(id) {
       x.className = "nav";
     }
   }
+  // Automatically fade out alerts after 5 seconds
+  setTimeout(function() {
+    var alerts = document.getElementsByClassName('alert');
+    for (var i = 0; i < alerts.length; i++) {
+      alerts[i].style.opacity = '0';
+      setTimeout(function(alert) {
+        alert.style.display = 'none';
+      }, 600, alerts[i]); // Wait for the fade out transition
+    }
+  }, 5000);
+
+  // Close the alert when the close button is clicked
+  var closeButtons = document.getElementsByClassName('alert-close');
+  for (var i = 0; i < closeButtons.length; i++) {
+    closeButtons[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.opacity = '0';
+      setTimeout(function() {
+        div.style.display = 'none';
+      }, 600);
+    };
+  }
+  function toggleMenu() {
+    var nav = document.querySelector('.nav');
+    if (nav.className === 'nav') {
+      nav.className += ' responsive';
+    } else {
+      nav.className = 'nav';
+    }
+  }
+
+  function showReplyForm(id) {
+    var form = document.getElementById('reply-form-' + id);
+    if (form.style.display === 'none' || form.style.display === '') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }
+  }

@@ -4,6 +4,7 @@ from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.views.generic import ListView, DetailView
 from .forms import CommentForm
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib import messages
 def index(request):
     social_links = SocialLink.objects.all()
     posts = Post.objects.all()
@@ -66,10 +67,11 @@ class ProfileDetailView(SuperuserRequiredMixin, DetailView):
 
     def get_queryset(self):
         return Profile.objects.filter(user__is_superuser=True)
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.filter(parent__isnull=True)  # Only top-level comments
-    social_links = SocialLink.objects.all()  # Fetch social links to display in template
+    comments = post.comments.filter(is_published=True, parent__isnull=True)
+    social_links = SocialLink.objects.all()
     
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
@@ -78,15 +80,18 @@ def post_detail(request, pk):
             parent_comment = None
             if parent_id:
                 try:
-                    parent_comment = Comment.objects.get(id=parent_id)
+                    parent_comment = Comment.objects.get(id=parent_id, is_published=True)
                 except Comment.DoesNotExist:
-                    parent_comment = None  # Handle case where parent comment does not exist
+                    parent_comment = None
             
             comment = form.save(commit=False)
             comment.post = post
             comment.parent = parent_comment
             comment.save()
-            return redirect('post_detail', pk=post.pk)  # Redirect to avoid form re-submission
+            messages.success(request, 'کامنت شما با موفقیت ثبت شد و پس از تایید ادمین نمایش داده میشود.')
+            return redirect('post_detail', pk=post.pk)
+        else:
+            messages.error(request, 'ثبت کامنت با خطا مواجه شد. لطفاً مجدداً تلاش کنید.')
     else:
         form = CommentForm()
 
@@ -96,7 +101,6 @@ def post_detail(request, pk):
         'form': form,
         'social_links': social_links
     })
-
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(category=category)

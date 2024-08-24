@@ -71,7 +71,9 @@ class Comment(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mov'])]
     )
     created_at = models.DateTimeField(auto_now_add=True)
-
+    is_published = models.BooleanField(default=False)  # فیلد وضعیت انتشار
+    def children(self):
+        return self.replies.filter(is_published=True) 
     def __str__(self):
         return f'Comment by {self.name} on {self.post.title}'
     def chlidren(self):
