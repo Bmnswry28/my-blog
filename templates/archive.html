@@ -4,35 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عباس منصوری - آرشیو</title>
+    <title>عباس منصوری - دسته‌بندی نوشته‌ها</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="hr">
-            <a href="#" title="عباس منصوری"><h1>عباس منصوری</h1></a>
+            <a href="{% url 'index' %}" title="عباس منصوری"><h1>عباس منصوری</h1></a>
         </div>
         <div class="nav">
             <a href="{% url 'index' %}">صفحه اول</a>
             <a href="{% url 'about' %}">درباره ما</a>
-            <a href="{% url 'archive_list' %}">آرشیو</a>
+            <a href="{% url 'category_list' %}">دسته‌بندی نوشته‌ها</a>
             <a href="{% url 'post_titles' %}">عناوین نوشته‌ها</a>
         </div>
     </header>
-    
+   
     <div id="wrp">
         <div id="right" class="padding">
             <div class="post">
                 <div class="title">
-                    <h2 style="text-align: center;">آرشیو مطالب</h2>
+                    <h2 style="text-align: center;">دسته‌بندی نوشته‌ها</h2>
                 </div>
                 <div class="content">
-                    <ul class="archive-list">
-                        {% for post in posts %}
-                        <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+                    <ul class="category-list">
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>
+                            ({{ category.posts.count }} نوشته)
+                        </li>
                         {% empty %}
-                            <li>مقاله‌ای برای نمایش وجود ندارد.</li>
+                        <li>دسته‌بندی‌ای برای نمایش وجود ندارد.</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -64,17 +67,18 @@
             </div>
         </div>
     </div>
-    
+   
     <div class="search-box">
         <form action="{% url 'search_results' %}" method="get">
+            {% csrf_token %}
             <input type="text" name="q" placeholder="عبارت مورد نظر را وارد کنید..." required>
             <button type="submit">جستجو</button>
         </form>
     </div>
-    <noscript>لطفا جاوا اسکریپت را فعال کنید تا نظرات نمایش داده شود. <a href="https://disqus.com/?ref_noscript">Disqus</a></noscript>
+    
     <footer id="footer">
         <p>مرسی از این که من رو همراهی میکنید ^_^</p>
     </footer>
-    <script src="{% static 'app.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>

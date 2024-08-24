@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404,redirect
-from .models import Post, Profile,Comment
+from .models import Post, Profile,Comment,Category
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.views.generic import ListView, DetailView
 from .forms import CommentForm
@@ -21,9 +21,9 @@ def search_results(request):
     return render(request, 'search_results.html', {'results': results, 'query': query})
 
 
-def archive_view(request):
-    posts = Post.objects.all().order_by('-publishedDate')
-    return render(request, 'archive.html', {'posts': posts})
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'archive.html', {'categories': categories})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -73,3 +73,8 @@ def post_detail(request, pk):
         form = CommentForm()
 
     return render(request, 'page.html', {'post': post, 'comments': comments, 'form': form})
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    posts = Post.objects.filter(category=category)
+    return render(request, 'category_detail.html', {'category': category, 'posts':posts})
