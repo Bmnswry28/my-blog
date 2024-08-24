@@ -68,21 +68,51 @@ class ProfileDetailView(SuperuserRequiredMixin, DetailView):
         return Profile.objects.filter(user__is_superuser=True)
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.all()
-
+    comments = post.comments.filter(parent__isnull=True)  # Only top-level comments
+    social_links = SocialLink.objects.all()  # Fetch social links to display in template
+    
     if request.method == 'POST':
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
+            parent_id = request.POST.get('parent_id')
+            parent_comment = None
+            if parent_id:
+                try:
+                    parent_comment = Comment.objects.get(id=parent_id)
+                except Comment.DoesNotExist:
+                    parent_comment = None  # Handle case where parent comment does not exist
+            
             comment = form.save(commit=False)
             comment.post = post
+            comment.parent = parent_comment
             comment.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('post_detail', pk=post.pk)  # Redirect to avoid form re-submission
     else:
         form = CommentForm()
 
-    return render(request, 'page.html', {'post': post, 'comments': comments, 'form': form})
+    return render(request, 'page.html', {
+        'post': post,
+        'comments': comments,
+        'form': form,
+        'social_links': social_links
+    })
 
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(category=category)
     return render(request, 'category_detail.html', {'category': category, 'posts':posts})
+
+def add_reply(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    parent_comment_id = request.POST.get('parent_id')
+    parent_comment = get_object_or_404(Comment, id=parent_comment_id) if parent_comment_id else None
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.post = post
+            reply.parent = parent_comment
+            reply.save()
+            return redirect('post_detail', pk=post.id)
+    return redirect('post_detail', pk=post.id)

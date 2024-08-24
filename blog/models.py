@@ -58,6 +58,7 @@ class Archive(models.Model):
     year=models.IntegerField()
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
     name = models.CharField(max_length=100)
     email = models.EmailField()
     website = models.URLField(blank=True, null=True)
@@ -73,7 +74,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post.title}'
-    
+    def chlidren(self):
+        return self.replies.all()
+    @property
+    def is_parent(self):
+        return self.parent is None
 class SocialLink(models.Model):
     name = models.CharField(max_length=100, help_text="نام نمایشی لینک (مانند YouTube, Instagram و غیره).")
     url = models.URLField(max_length=255, help_text="آدرس کامل لینک.")

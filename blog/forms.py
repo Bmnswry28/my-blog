@@ -5,3 +5,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'email', 'website', 'content', 'image', 'video']
+        widgets ={
+            'parent':forms.HiddenInput()
+        }

@@ -18,3 +18,12 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('user',)
 
 admin.site.register(SocialLink)
+
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'post', 'parent', 'created_at')
+    search_fields = ('name', 'email', 'content')
+    list_filter = ('created_at',)
+    ordering = ('created_at',)
+
+admin.site.register(Comment, CommentAdmin)
