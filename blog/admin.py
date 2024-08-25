@@ -1,15 +1,19 @@
 from django.contrib import admin
 from .models import Post, Category, Profile, SocialLink, Comment
-from django_summernote.admin import SummernoteModelAdmin
+from django.utils.html import format_html
 # Registering Post model
 @admin.register(Post)
-class PostAdmin(SummernoteModelAdmin):
-    list_display = ('title', 'author', 'publishedDate', 'status')
-    search_fields = ('title', 'Content')  # توجه کنید که نام فیلد Content با حرف بزرگ شروع شده است
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'publishedDate', 'status', 'is_published')
+    search_fields = ('title', 'Content')
     list_filter = ('status', 'created_at', 'publishedDate', 'author')
     prepopulated_fields = {'slug': ('title',)}
     ordering = ['status', 'publishedDate']
-    summernote_fields = ('Content',)
+    empty_value_display = '-empty-'
+    
+    def is_published(self, obj):
+        return obj.status == 'published'
+    is_published.boolean = True
 # Registering Category model
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

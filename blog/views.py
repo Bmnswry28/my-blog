@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 def index(request):
     social_links = SocialLink.objects.all()
-    posts = Post.objects.all()
+    posts = Post.objects.filter(status='published')
     context = {
         'social_links': social_links,
         'posts': posts
