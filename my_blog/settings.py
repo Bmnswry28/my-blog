@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'captcha',
-    'ckeditor',
+    'django_summernote',
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'robots',
