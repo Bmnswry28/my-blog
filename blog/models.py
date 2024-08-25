@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -37,7 +38,8 @@ class Post(models.Model):
         return self.name
     def __str__(self):
         return self.title
-
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.pk)])
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)

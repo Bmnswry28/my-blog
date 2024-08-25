@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'captcha',
-    'ckeditor'
+    'ckeditor',
+    'django.contrib.sites',
+    'django.contrib.sitemaps'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+SITE_ID = 2
 
 ROOT_URLCONF = 'my_blog.urls'
 
