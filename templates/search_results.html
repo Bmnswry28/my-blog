@@ -1,16 +1,28 @@
-<h1>نتایج جستجو برای: "{{ query }}"</h1>
-
-{% if results %}
-    <ul>
-        {% for post in results %}
-            <li>
-                <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-                <p>{{ post.Content|truncatewords:30 }}...</p>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>نتیجه‌ای یافت نشد.</p>
-{% endif %}
-
-<a href="{% url 'index' %}">بازگشت به صفحه اصلی</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتایج جستجو برای: "{{ query }}"</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>نتایج جستجو برای:{{ query }}</h1>
+    
+    {% if results %}
+        <ul>
+            {% for post in results %}
+                <li>
+                    <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+                    <p>{{ post.Content|truncatewords:30 }}...</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>نتیجه‌ای یافت نشد.</p>
+    {% endif %}
+    
+    <a href="{% url 'index' %}">بازگشت به صفحه اصلی</a>    
+</body>
+</html>
