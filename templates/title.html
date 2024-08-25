@@ -42,10 +42,43 @@
                 </div> 
             </div>
         </div>
+
+        <div id="left">
+            <div class="padding">
+                <div class="side">
+                    <h5>مشخصات وب</h5>
+                    <div class="content">
+                        {% if profile %}
+                            {% if profile.profile_pic %}
+                                <img class="avatar" title="{{ profile.user.username }}" alt="{{ profile.user.username }}" src="{{ profile.profile_pic.url }}">  
+                            {% else %}
+                                <img class="avatar" title="کاربر" alt="کاربر" src="{% static 'images/default-avatar.png' %}">
+                            {% endif %}
+                            <p>{{ profile.bio }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="side">
+                    <h5>پیوندها</h5>
+                    <div class="content">
+                        <ul>
+                            {% for link in social_links %}
+                            <li>
+                                <a href="{{ link.url }}" target="_blank" title="{{ link.name }}">
+                                    <i class="{{ link.icon_class }}"></i> {{ link.name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>                    
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer id="footer">
         <p>مرسی از این که من رو همراهی میکنید ^_^</p>
     </footer>
+    <script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>

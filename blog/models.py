@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.validators import FileExtensionValidator
 from django.urls import reverse
 # Create your models here.
+#profile supruser
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, null=True, blank=True)
@@ -73,7 +74,7 @@ class Comment(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mov'])]
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    is_published = models.BooleanField(default=False)  # فیلد وضعیت انتشار
+    is_published = models.BooleanField(default=False)  #field stuts published
     def children(self):
         return self.replies.filter(is_published=True) 
     def __str__(self):

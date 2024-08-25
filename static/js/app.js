@@ -1,3 +1,4 @@
+// Responsive nav
 function toggleMenu() {
     var x = document.querySelector(".nav");
     if (x.className === "nav") {
@@ -12,15 +13,6 @@ function showReplyForm(id) {
       replyForm.style.display = 'block';
     } else {
       replyForm.style.display = 'none';
-    }
-  }
-
-  function toggleMenu() {
-    var x = document.querySelector(".nav");
-    if (x.className === "nav") {
-      x.className += " responsive";
-    } else {
-      x.className = "nav";
     }
   }
   // Automatically fade out alerts after 5 seconds
@@ -45,15 +37,6 @@ function showReplyForm(id) {
       }, 600);
     };
   }
-  function toggleMenu() {
-    var nav = document.querySelector('.nav');
-    if (nav.className === 'nav') {
-      nav.className += ' responsive';
-    } else {
-      nav.className = 'nav';
-    }
-  }
-
   function showReplyForm(id) {
     var form = document.getElementById('reply-form-' + id);
     if (form.style.display === 'none' || form.style.display === '') {

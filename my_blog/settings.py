@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'multi_captcha_admin',
+    'multi_captcha_admin', # captcha admin panel
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,12 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'captcha',
+    'captcha', #captcha form comments
     'django_summernote',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'robots',
-    'taggit'
+    'robots', # robots.txt
+    'taggit',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +60,7 @@ MIDDLEWARE = [
     
 ]
 
-
+# sitemap
 SITE_ID = 2
 
 ROOT_URLCONF = 'my_blog.urls'
@@ -139,11 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
-
+#Captcha type admin panel
 MULTI_CAPTCHA_ADMIN = {
     'engine': 'simple-captcha',
 }
-
+# Security settings
 
 # X_FRAME_OPTIONS = 'DENY'
 # SECURE_BROWSER_XSS_FILTER = True
@@ -156,3 +157,19 @@ MULTI_CAPTCHA_ADMIN = {
 # CSRF_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_SAMESITE = 'Lax'
 # SESSION_COOKIE_SAMESITE = 'Lax'
+
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ENABLED = True
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+COMPRESS_ROOT = STATIC_ROOT
+
+COMPRESS_OFFLINE = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter', 'compressor.filters.cssmin.rCSSMinFilter']
+COMPRESS_JS_FILTERS = ['compressor.filters.jsmin.JSMinFilter']

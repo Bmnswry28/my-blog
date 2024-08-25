@@ -31,7 +31,7 @@ def category_list(request):
     social_links = SocialLink.objects.all()
     profile = Profile.objects.filter(user__is_superuser=True).first()
     context = {
-        'categories': categories,
+       'categories': categories,
        'social_links': social_links,
        'profile':profile   
     }
@@ -42,16 +42,14 @@ def AboutView(request):
     return render(request, 'about.html',{'social_links': social_links,'profile':profile})
 
 def post_titles_view(request):
+    social_links = SocialLink.objects.all()
+    profile = Profile.objects.filter(user__is_superuser=True).first()
     titles = Post.objects.filter(status='published').order_by('-publishedDate')
-    return render(request, 'title.html', {'titles': titles})
+    return render(request, 'title.html', {'titles': titles,'social_links': social_links,'profile':profile})
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_superuser
-
-    def handle_no_permission(self):
-        return redirect('home')  # Redirect to home page if not a superuser
-
 class ProfileListView(ListView):
     model = Profile
     template_name = 'profile_list.html'
