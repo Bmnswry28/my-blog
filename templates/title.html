@@ -29,12 +29,14 @@
                 </div>
                 <div class="content">
                     <ul>
-                        {% for link in social_links %}
+                        {% for title in titles %}
                         <li>
-                            <a href="{{ link.url }}" target="_blank" title="{{ link.name }}">
-                                <i class="{{ link.icon_class }}"></i> {{ link.name }}
+                            <a href="{% url 'post_detail' title.id %}" title="{{ title.title }}">
+                                {{ title.title }}
                             </a>
                         </li>
+                        {% empty %}
+                        <li>هیچ نوشته‌ای یافت نشد.</li>
                         {% endfor %}
                     </ul>
                 </div> 
