@@ -4,8 +4,8 @@ from django.utils.html import format_html
 # Registering Post model
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'publishedDate', 'status', 'is_published')
-    search_fields = ('title', 'Content')
+    list_display = ('title', 'author', 'publishedDate', 'status', 'is_published','catgory')
+    search_fields = ('title', 'Content','catgory')
     list_filter = ('status', 'created_at', 'publishedDate', 'author')
     prepopulated_fields = {'slug': ('title',)}
     ordering = ['status', 'publishedDate']

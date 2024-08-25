@@ -8,9 +8,11 @@ from django.contrib import messages
 def index(request):
     social_links = SocialLink.objects.all()
     posts = Post.objects.filter(status='published')
+    profile = Profile.objects.filter(user__is_superuser=True).first()
     context = {
         'social_links': social_links,
-        'posts': posts
+        'posts': posts,
+        'profile': profile
     }
     return render(request, 'index.html', context)
 
@@ -32,11 +34,6 @@ def category_list(request):
        'social_links': social_links
     }
     return render(request, 'archive.html', context)
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'page.html', {'post': post})
-
 def AboutView(request):
     social_links = SocialLink.objects.all()
     return render(request, 'about.html',{'social_links': social_links})
@@ -52,22 +49,10 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
     def handle_no_permission(self):
         return redirect('home')  # Redirect to home page if not a superuser
 
-class ProfileListView(SuperuserRequiredMixin, ListView):
+class ProfileListView(ListView):
     model = Profile
     template_name = 'profile_list.html'
     context_object_name = 'profiles'
-
-    def get_queryset(self):
-        return Profile.objects.filter(user__is_superuser=True)
-
-class ProfileDetailView(SuperuserRequiredMixin, DetailView):
-    model = Profile
-    template_name = 'profile_detail.html'
-    context_object_name = 'profile'
-
-    def get_queryset(self):
-        return Profile.objects.filter(user__is_superuser=True)
-
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     comments = post.comments.filter(is_published=True, parent__isnull=True)
@@ -101,6 +86,7 @@ def post_detail(request, pk):
         'form': form,
         'social_links': social_links
     })
+
 def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     posts = Post.objects.filter(category=category)

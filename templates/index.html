@@ -55,11 +55,13 @@
                 <div class="side">
                     <h5>مشخصات وب</h5>
                     <div class="content">
-                        {% if user.is_superuser and user.profile %}
-                            <img class="avatar" title="{{ user.username }}" alt="{{ user.username }}" src="{{ user.profile.profile_pic.url }}">  
-                            <p>{{ user.profile.bio }}</p>
-                        {% else %}
-                            <p>فقط سوپر یوزرها پروفایل دارند.</p>
+                        {% if profile %}
+                            {% if profile.profile_pic %}
+                                <img class="avatar" title="{{ profile.user.username }}" alt="{{ profile.user.username }}" src="{{ profile.profile_pic.url }}">  
+                            {% else %}
+                                <img class="avatar" title="کاربر" alt="کاربر" src="{% static 'images/default-avatar.png' %}">
+                            {% endif %}
+                            <p>{{ profile.bio }}</p>
                         {% endif %}
                     </div>
                 </div>
