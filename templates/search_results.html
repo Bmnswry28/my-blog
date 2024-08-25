@@ -5,7 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتایج جستجو برای: "{{ query }}"</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+               body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: right;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #444;
+            border-bottom: 2px solid #F5AB35;
+            padding-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            text-decoration: none;
+            color: #F5AB35;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #D80;
+        }
+
+        p {
+            margin: 10px 0 0;
+        }
+
+        .no-results {
+            background-color: #fdd;
+            color: #900;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            background-color: #333;
+        }
+    </style>
 </head>
 <body>
     <h1>نتایج جستجو برای:{{ query }}</h1>
