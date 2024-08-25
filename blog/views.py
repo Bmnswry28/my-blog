@@ -29,14 +29,17 @@ def search_results(request):
 def category_list(request):
     categories = Category.objects.all()
     social_links = SocialLink.objects.all()
+    profile = Profile.objects.filter(user__is_superuser=True).first()
     context = {
         'categories': categories,
-       'social_links': social_links
+       'social_links': social_links,
+       'profile':profile   
     }
     return render(request, 'archive.html', context)
 def AboutView(request):
     social_links = SocialLink.objects.all()
-    return render(request, 'about.html',{'social_links': social_links})
+    profile = Profile.objects.filter(user__is_superuser=True).first()
+    return render(request, 'about.html',{'social_links': social_links,'profile':profile})
 
 def post_titles_view(request):
     titles = Post.objects.all().order_by('-publishedDate')
