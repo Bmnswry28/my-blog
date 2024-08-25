@@ -42,7 +42,7 @@ def AboutView(request):
     return render(request, 'about.html',{'social_links': social_links,'profile':profile})
 
 def post_titles_view(request):
-    titles = Post.objects.all().order_by('-publishedDate')
+    titles = Post.objects.filter(status='published').order_by('-publishedDate')
     return render(request, 'title.html', {'titles': titles})
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
